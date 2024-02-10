@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.XR;
 
 public class entrega_8 : MonoBehaviour
 {
     public TextMeshProUGUI sumText;
+    public TextMeshProUGUI songText;
+    public TextMeshProUGUI wordText;
     private int sum;
     private int currentNumber;
+    private string frase = "I like videogames";
 
     void Start()
     {
@@ -15,7 +22,14 @@ public class entrega_8 : MonoBehaviour
         currentNumber = 1;
         StartCoroutine(UpdateSum());
 
-        StartCoroutine(DisplaySong());
+        
+
+        StartCoroutine(ejercicio2());
+
+        
+
+
+        StartCoroutine(ejercicio5());
     }
 
     System.Collections.IEnumerator UpdateSum()
@@ -31,50 +45,49 @@ public class entrega_8 : MonoBehaviour
         }
     }
 
-    public TextMeshProUGUI textDisplay;
-    public float delayBetweenSentences = 0.5f;
-    public string finalPhrase = "The song has ended.";
-
-    private string[] lyrics = {
-        "10 green bottles",
-        "Hanging on the wall",
-        "10 green bottles",
-        "Hanging on the wall",
-        "And if one green bottle",
-        "Should accidentally fall",
-        "There’ll be 9 green bottles",
-        "Hanging on the wall"
-    };
-
-    
-
-    IEnumerator DisplaySong()
+    private IEnumerator ejercicio2()
     {
-        for (int i = 0; i < lyrics.Length; i++)
+        for (int i = 10; i > 0; i--)
         {
-            textDisplay.text = lyrics[i];
-            yield return new WaitForSeconds(delayBetweenSentences);
+           
 
-            // Display only the first sentence of the following strophe
-            if (i % 4 == 3 && i != lyrics.Length - 1)
-            {
-                textDisplay.text = lyrics[i + 1];
-                yield return new WaitForSeconds(delayBetweenSentences);
-            }
+         
+                yield return new WaitForSeconds(0.5f);
+                songText.text = i + " green bottles\n ";
+                yield return new WaitForSeconds(0.5f);
+                songText.text += "Hanging on the wall\n";
+                yield return new WaitForSeconds(0.5f);
+                songText.text += i + " green bottles\n ";
+                yield return new WaitForSeconds(0.5f);
+                songText.text += "Hanging on the wall\n";
+
+                yield return new WaitForSeconds(0.5f);
+                songText.text += "And if one green bottle\n";
+                yield return new WaitForSeconds(0.5f);
+                songText.text += "Should accidentally fall\n";
+                yield return new WaitForSeconds(0.5f);
+                songText.text += "There’ll be " + (i - 1) + " green bottles\n";
+                yield return new WaitForSeconds(0.5f);
+                songText.text += "Hanging on the wall\n";
+
+
+
         }
 
-        // Display the final phrase
-        textDisplay.text = finalPhrase;
+        yield return new WaitForSeconds(0.5f);
+        songText.text = "FIN no quedan más . . .\n";
+
     }
 
+    private IEnumerator ejercicio5()
+    {
+        wordText.text = "";
+        for (int i = 0; i < frase.Length; i++)
+        {
+            
+            wordText.text += frase[i];
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-}
+    }
